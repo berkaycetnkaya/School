@@ -1,0 +1,12 @@
+#body{
+  background-image: url("../app/asda.jpg");
+  min-height:50cm;
+}
+#footer{
+  position: fixed;
+  bottom: 0px;
+  font-weight: 40;
+  width: 65%;
+
+
+}

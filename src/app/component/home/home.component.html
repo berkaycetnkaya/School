@@ -1,0 +1,29 @@
+
+
+
+
+<table class="table table-dark table-striped">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Özellikler</th>
+      <th scope="col">Okul Adı</th>
+      <th scope="col">Başlangıç Saati</th>
+      <th scope="col">Bitiş Saati</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let school of schoole" >
+      <th scope="row"  ></th>
+      <td><button type="button" class="btn btn-secondary" (click)="denem1evet()">Detaylar    </button> <br > <h6> <ul *ngIf="deneme1" class="list-group">
+        <li class="list-group-item">{{school.lessonName}}</li>
+
+      </ul></h6> </td>
+      <td >{{school.name}}</td>
+      <td >{{school.startDate}}</td>
+      <td >{{school.endDate}}</td>
+
+    </tr>
+
+  </tbody>
+</table>
