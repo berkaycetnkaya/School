@@ -1,7 +1,7 @@
 export interface School{
   id:number;
   name:string;
-  dateDate:Date;
+  buildDate:Date;
   startDate:Date;
   endDate:Date;
   cityId:number;

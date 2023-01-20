@@ -10,20 +10,30 @@
       <th scope="col">Okul Adı</th>
       <th scope="col">Başlangıç Saati</th>
       <th scope="col">Bitiş Saati</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let school of schoole" >
+    <tr *ngFor="let school of list" >
       <th scope="row"  ></th>
-      <td><button type="button" class="btn btn-secondary" (click)="denem1evet()">Detaylar    </button> <br > <h6> <ul *ngIf="deneme1" class="list-group">
+      <td><button type="button" class="btn btn-secondary" (click)="denem1evet(school)">Detaylar    </button> <br > <h6> <ul *ngIf="school.selected" class="list-group">
         <li class="list-group-item">{{school.lessonName}}</li>
+
 
       </ul></h6> </td>
       <td >{{school.name}}</td>
       <td >{{school.startDate}}</td>
       <td >{{school.endDate}}</td>
+      <td ><button type="button" class="btn btn-success mb-3" (click)="createComponent()">Ders Ekle</button>
+      </td>
+
 
     </tr>
 
   </tbody>
 </table>
+
+
+<ng-template #modalContainer></ng-template>
+
+

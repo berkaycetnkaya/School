@@ -8,6 +8,9 @@ import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LessonComponent } from './component/lesson/lesson.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,8 +23,12 @@ import { LessonComponent } from './component/lesson/lesson.component';
     HttpClientModule,
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right"
+
     }),
     BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
 
   ],
   providers: [],
