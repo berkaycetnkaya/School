@@ -1,7 +1,11 @@
+import { SchoolLesson } from './../../models/schoolLessonDto';
+import { SchoolLessonService } from './../../services/school-lesson.service';
 import { LessonComponent } from './../lesson/lesson.component';
-import { School } from './../../models/schoold';
+
 import { SchoolService } from './../../services/school.service';
 import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { PopupschoolService } from 'src/app/services/popupschool.service';
+import { SchoolDto } from 'src/app/models/schoolDto';
 
 @Component({
   selector: 'app-home',
@@ -10,30 +14,39 @@ import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRe
 })
 export class HomeComponent implements OnInit {
   deneme1 = false;
-  schoole: School[] = [];
+  schoole: SchoolDto[] = [];
   ola = false;
   berk = { visibility: 'visible' };
   berka = { visibility: 'hidden' };
   list:any[]=[]
+  listOfSchoolLesson:SchoolLesson[]=[]
+ buttonList:any[]=[]
   @ViewChild('modalContainer',{ read: ViewContainerRef }) modalContainer: ViewContainerRef;
 
-  constructor(private school: SchoolService,private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(private school: SchoolService,private componentFactoryResolver: ComponentFactoryResolver,private schoolLesson:SchoolLessonService,private shared:PopupschoolService) {}
   ngOnInit(): void {
     this.getAllSchools();
 
+
   }
-  createComponent(){
+  createComponent(school:SchoolLesson){
     this.modalContainer.clear();
-    console.log("afasdfasd");
+    // console.log("afasdfasd");
     const factory = this.componentFactoryResolver.resolveComponentFactory(LessonComponent);
     const componentRef = this.modalContainer.createComponent(factory);
+this.shared.setSchoolId(school.id);
+// console.log(id)
+
+// console.log(this.shared.getSchoolId())
+
   }
 
   getAllSchools() {
-    this.school.getAll().subscribe((response) => {
-      this.schoole = response.data;
-      this.list = response.data.map(x => ({ id: x.id, name: x.name,dateTime: x.buildDate,startDate: x.startDate,endDate: x.endDate,cityId: x.cityId,lessonId: x.lessonId,lessonName: x.lessonName,cityName: x.cityName, selected: false }));
-      console.log(this.list);
+    this.schoolLesson.getAll().subscribe((response) => {
+      this.listOfSchoolLesson = response.data;
+
+      this.list = response.data.map(x => ({ id: x.id, name: x.schoolName,dateTime: x.buildDate,startDate: x.startDate,endDate: x.endDate,lessonId:x.lessonId,LessonName:x.lessonName ,selected: false }));
+       console.log(this.list);
     });
   }
 
@@ -43,15 +56,16 @@ export class HomeComponent implements OnInit {
 
     school.selected=!school.selected
 console.log(school.selected)
+this.getSchoolLessson(school.id);
 
 
 }
-currentSchool:School;
-setCurrentSchool(school:School){
+currentSchool:SchoolDto;
+setCurrentSchool(school:SchoolDto){
   this.currentSchool=school;
 
  }
- getCurrentSchoolClass(school:School){
+ getCurrentSchoolClass(school:SchoolDto){
    if(school==this.currentSchool){
      return  "list-group-item active"
    }
@@ -68,6 +82,14 @@ setCurrentSchool(school:School){
    }
  }
 
-
+getSchoolLessson(id:number){
+this.schoolLesson.getById(id).subscribe(response=>{
+  this.listOfSchoolLesson=response.data
+ // this.buttonList.push(response.data)
+  //console.log(this.buttonList)
+})
+}
 
 }
+
+// detaylar butonuyla gelsın duzenle

@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
-import { School } from '../models/schoold';
+import { SchoolDto } from '../models/schoolDto';
+
 import { SingleResponseModel } from '../models/singleResponseModel';
 
 @Injectable({
@@ -14,14 +15,14 @@ export class SchoolService {
   apiUrl="https://localhost:7214/api/School/"
 
 
-getAll():Observable<ListResponseModel<School>>{
+getAll():Observable<ListResponseModel<SchoolDto>>{
 let newpath=this.apiUrl+"getall"
-return this.http.get<ListResponseModel<School>>(newpath)
+return this.http.get<ListResponseModel<SchoolDto>>(newpath)
 }
 
-getById():Observable<SingleResponseModel<School>>{
-  let newpath=this.apiUrl+"getbyid"
-  return this.http.get<SingleResponseModel<School>>(newpath)
+getById(id:number):Observable<SingleResponseModel<SchoolDto>>{
+  let newpath=this.apiUrl+"getbyid?id="+id
+  return this.http.get<SingleResponseModel<SchoolDto>>(newpath)
 }
 
 }
