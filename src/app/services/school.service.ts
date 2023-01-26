@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from '../models/listResponseModel';
+import { School } from '../models/school';
 import { SchoolDto } from '../models/schoolDto';
 
 import { SingleResponseModel } from '../models/singleResponseModel';
@@ -20,9 +21,14 @@ let newpath=this.apiUrl+"getall"
 return this.http.get<ListResponseModel<SchoolDto>>(newpath)
 }
 
-getById(id:number):Observable<SingleResponseModel<SchoolDto>>{
+getDtoById(id:number):Observable<ListResponseModel<SchoolDto>>{
   let newpath=this.apiUrl+"getbyid?id="+id
-  return this.http.get<SingleResponseModel<SchoolDto>>(newpath)
+  return this.http.get<ListResponseModel<SchoolDto>>(newpath)
 }
 
+
+getById(id:number):Observable<SingleResponseModel<School>>{
+  let newpath=this.apiUrl+"getbyid?id="+id
+  return this.http.get<SingleResponseModel<School>>(newpath)
+}
 }

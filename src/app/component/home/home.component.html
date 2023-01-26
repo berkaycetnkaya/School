@@ -1,7 +1,3 @@
-
-
-
-
 <table class="table table-dark table-striped">
   <thead>
     <tr>
@@ -14,26 +10,29 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let school of list;let i=index" >
-      <th scope="row"  ></th>
-      <td><button type="button" class="btn btn-secondary" (click)="denem1evet(school)"   [attr.id]="i" >Detaylar    </button> <br > <h6> <ul *ngIf="school.selected" class="list-group">
-        <li class="list-group-item"  >{{school.LessonName}}</li>
+    <tr *ngFor="let school of list; let i = index">
+      <th scope="row"></th>
+      <td>
+        <button type="button" class="btn btn-secondary" (click)="denem1evet(school)" [attr.id]="i">
+          Detaylar
+        </button>
+        <br />
+        <h6>
+          <ul *ngIf="school.selected" class="list-group">
+            <li class="list-group-item"  *ngFor="let lesson of listOfSchoolLesson ">{{ lesson.lessonName }}</li>
 
-        <button type="button" class="btn btn-success mb-3" (click)="createComponent(school)">Düzenle</button>
-      </ul></h6> </td>
-      <td >{{school.name}}</td>
-      <td >{{school.startDate}}</td>
-      <td >{{school.endDate}}</td>
-      <td>{{school.id}}</td>
-
-
-
+            <button type="button" class="btn btn-success mb-3" (click)="createComponent(school)">
+              Düzenle
+            </button>
+          </ul>
+        </h6>
+      </td>
+      <td  >{{ school.name }}</td>
+      <td>{{ school.startDate }}</td>
+      <td>{{ school.endDate }}</td>
+      <td>{{ school.id }}</td>
     </tr>
-
   </tbody>
 </table>
 
-
 <ng-template #modalContainer></ng-template>
-
-

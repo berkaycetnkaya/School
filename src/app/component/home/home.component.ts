@@ -1,3 +1,4 @@
+import { Lesson } from './../../models/lesson';
 import { SchoolLesson } from './../../models/schoolLessonDto';
 import { SchoolLessonService } from './../../services/school-lesson.service';
 import { LessonComponent } from './../lesson/lesson.component';
@@ -20,8 +21,12 @@ export class HomeComponent implements OnInit {
   berka = { visibility: 'hidden' };
   list:any[]=[]
   listOfSchoolLesson:SchoolLesson[]=[]
+
  buttonList:any[]=[]
   @ViewChild('modalContainer',{ read: ViewContainerRef }) modalContainer: ViewContainerRef;
+  @ViewChild(LessonComponent) private Legggsin: LessonComponent;
+
+
 
   constructor(private school: SchoolService,private componentFactoryResolver: ComponentFactoryResolver,private schoolLesson:SchoolLessonService,private shared:PopupschoolService) {}
   ngOnInit(): void {
@@ -35,6 +40,7 @@ export class HomeComponent implements OnInit {
     const factory = this.componentFactoryResolver.resolveComponentFactory(LessonComponent);
     const componentRef = this.modalContainer.createComponent(factory);
 this.shared.setSchoolId(school.id);
+
 // console.log(id)
 
 // console.log(this.shared.getSchoolId())
@@ -42,21 +48,25 @@ this.shared.setSchoolId(school.id);
   }
 
   getAllSchools() {
-    this.schoolLesson.getAll().subscribe((response) => {
-      this.listOfSchoolLesson = response.data;
+    this.school.getAll().subscribe((response) => {
+      this.schoole = response.data;
 
-      this.list = response.data.map(x => ({ id: x.id, name: x.schoolName,dateTime: x.buildDate,startDate: x.startDate,endDate: x.endDate,lessonId:x.lessonId,LessonName:x.lessonName ,selected: false }));
+      this.list = response.data.map(x => ({ id: x.id, name: x.name,dateTime: x.buildDate,startDate: x.startDate,endDate: x.endDate ,selected: false }));
        console.log(this.list);
+
+
     });
   }
 
   //visibility:visible
 
   denem1evet(school:any){
-
+ this.list.forEach(i=>i.selected=false)
     school.selected=!school.selected
 console.log(school.selected)
 this.getSchoolLessson(school.id);
+console.log(school.id+"school id ")
+
 
 
 }
@@ -86,7 +96,8 @@ getSchoolLessson(id:number){
 this.schoolLesson.getById(id).subscribe(response=>{
   this.listOfSchoolLesson=response.data
  // this.buttonList.push(response.data)
-  //console.log(this.buttonList)
+  console.log(this.listOfSchoolLesson)
+  console.log(response.data)
 })
 }
 

@@ -19,34 +19,26 @@
           />
       </div> -->
 
-
-      <form [formGroup]="schoolAddForm">
-
-
-        <label for="brandId">Okul Adı</label>
-        <div class="form-group">
-            <input type="text" id="name" formControlName="name"    class="form-control"/>
-    </div>
-    <label for="colorName"> Okulun Yapım Yılı</label>
-    <div class="form-group">
-        <input type="date" id="buildName" formControlName="buildName"  class="form-control" placeholder=""/>
-</div>
-<label for="modelYear"> Okul Açılış Saati</label>
-<div class="form-group">
-    <input type="time" id="startDate" formControlName="startDate"  class="form-control" placeholder=""/>
-</div>
-
-<label for="dailyPrice"> Okul Kapanış saati </label>
-<div class="form-group">
-<input type="time" id="endDate" formControlName="endDate"  class="form-control" placeholder=""/>
-</div>
-<label for="description"> Okulun Bulunduğu İl</label>
-<div class="form-group">
-<input type="text" id="cityName" formControlName="cityName"  class="form-control" placeholder=""/>
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://scontent.fesb10-3.fna.fbcdn.net/v/t1.6435-9/105707767_3224631664225276_3251863682170934505_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=730e14&_nc_ohc=6AQ8z0EYDv8AX9oJDtW&_nc_ht=scontent.fesb10-3.fna&oh=00_AfBc1JhUfBGDiVTTNC5tuTlhj7w8boU6BL2fguHedcfMZQ&oe=63F9EBC1" class="img-fluid rounded-start" alt="">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{sc.name}}</h5>
+              <p class="card-text">Okulda derslerimizin   Başlangıç saati {{sc.startDate }} ve bitiş saati {{ sc.endDate}} olarak belirlenmiştir.</p>
+              <p class="card-text"><small class="text-muted">Okulumuza eklemek istediğiniz dersleri aşağıdan seçebilirsiniz.</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+<div>
+  <h2>Eklenebilir Dersler</h2>
+  <app-lessonChild></app-lessonChild>
 </div>
 
-<app-lessonChild></app-lessonChild>
-</form>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
         <button type="button" class="btn btn-primary" >Save changes</button>

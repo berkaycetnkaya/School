@@ -1,3 +1,4 @@
+import { School } from './../../models/school';
 import { PopupschoolService } from './../../services/popupschool.service';
 
 import { SchoolService } from './../../services/school.service';
@@ -16,8 +17,9 @@ export class LessonComponent implements OnInit, AfterViewInit {
   @ViewChild('myModal') private modalPopUp: ModalDirective;
 
   schoolAddForm:FormGroup
-sc:SchoolDto;
+sc:School;
 name:string
+bol=false;
 
 
 
@@ -26,31 +28,39 @@ name:string
   }
 
   ngOnInit(): void {
-    this.createSchoolForm();
 
     this.getSchool();
+    this.createSchoolForm();
+
 
 
   }
   ngAfterViewInit(): void {
     this.show();
 
+
+
   }
 
 getSchool(){
-let a = this.shared.getSchoolId();
+  let a = this.shared.getSchoolId();
 console.log("bu a "+ a)
 this.school.getById(a).subscribe(response=>{
   this.sc=response.data
-this.name=response.data.name
-  // console.log(this.schools.name)
-  console.log(response.data)
+console.log(this.sc.name+" sa")
+
   console.log(this.sc)
-
-
-
+  this.bol=true;
+  if(this.bol){
+    console.log(response.data)
+    console.log(this.sc)
+  }
 
 });
+
+
+
+
 }
 
   show(){
@@ -93,19 +103,22 @@ this.name=response.data.name
 
   createSchoolForm(){
 
-
-this.schoolAddForm=this.formsBuilder.group({
-
-
-
-  name:["",Validators.required],
-  buildName:["",Validators.required],
-  startDate:["",Validators.required],
-  endDate:["",Validators.required],
-  cityName:["",Validators.required],
+  this.schoolAddForm=this.formsBuilder.group({
 
 
 
-})
+    name:["",Validators.required],
+    buildName:["",Validators.required],
+    startDate:["",Validators.required],
+    endDate:["",Validators.required],
+    cityName:["",Validators.required],
+
+
+
+  })
+
+
+
+
   }
 }
