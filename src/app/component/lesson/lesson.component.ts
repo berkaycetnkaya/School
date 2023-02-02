@@ -2,7 +2,7 @@ import { School } from './../../models/school';
 import { PopupschoolService } from './../../services/popupschool.service';
 
 import { SchoolService } from './../../services/school.service';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -16,11 +16,13 @@ import { SchoolDto } from 'src/app/models/schoolDto';
 export class LessonComponent implements OnInit, AfterViewInit {
   @ViewChild('myModal') private modalPopUp: ModalDirective;
 
+  @Output() cl=new EventEmitter<any>();
+
   schoolAddForm:FormGroup
 sc:School;
 name:string
 bol=false;
-
+scid:number
 
 
   constructor(private formsBuilder:FormBuilder,private toastrService:ToastrService,private school:SchoolService,private shared:PopupschoolService) {
@@ -44,22 +46,29 @@ bol=false;
 
 getSchool(){
   let a = this.shared.getSchoolId();
-console.log("bu a "+ a)
+
 this.school.getById(a).subscribe(response=>{
   this.sc=response.data
-console.log(this.sc.name+" sa")
 
-  console.log(this.sc)
+
+
   this.bol=true;
   if(this.bol){
-    console.log(response.data)
-    console.log(this.sc)
+
   }
 
 });
 
 
 
+
+}
+
+saveButton(data:any){
+
+  this.cl.emit(data);
+
+  this.modalPopUp.hide();
 
 }
 

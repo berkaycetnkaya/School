@@ -52,7 +52,7 @@ this.shared.setSchoolId(school.id);
       this.schoole = response.data;
 
       this.list = response.data.map(x => ({ id: x.id, name: x.name,dateTime: x.buildDate,startDate: x.startDate,endDate: x.endDate ,selected: false }));
-       console.log(this.list);
+
 
 
     });
@@ -63,9 +63,9 @@ this.shared.setSchoolId(school.id);
   denem1evet(school:any){
  this.list.forEach(i=>i.selected=false)
     school.selected=!school.selected
-console.log(school.selected)
+
 this.getSchoolLessson(school.id);
-console.log(school.id+"school id ")
+
 
 
 
@@ -96,9 +96,12 @@ getSchoolLessson(id:number){
 this.schoolLesson.getById(id).subscribe(response=>{
   this.listOfSchoolLesson=response.data
  // this.buttonList.push(response.data)
-  console.log(this.listOfSchoolLesson)
-  console.log(response.data)
+
 })
+}
+
+onClose(data:any){
+
 }
 
 }
