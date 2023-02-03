@@ -1,3 +1,5 @@
+import { SchoolLessonService } from './../../services/school-lesson.service';
+import { LessonChildComponent } from './../lessonChild/lessonChild.component';
 import { School } from './../../models/school';
 import { PopupschoolService } from './../../services/popupschool.service';
 
@@ -7,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { SchoolDto } from 'src/app/models/schoolDto';
+import { TriggerService } from 'src/app/services/trigger.service';
 
 @Component({
   selector: 'app-lesson',
@@ -16,6 +19,8 @@ import { SchoolDto } from 'src/app/models/schoolDto';
 export class LessonComponent implements OnInit, AfterViewInit {
   @ViewChild('myModal') private modalPopUp: ModalDirective;
 
+  @ViewChild(LessonChildComponent) private Legggsin: LessonChildComponent;
+
   @Output() cl=new EventEmitter<any>();
 
   schoolAddForm:FormGroup
@@ -23,9 +28,12 @@ sc:School;
 name:string
 bol=false;
 scid:number
+bol2=false
+data:any
 
-
-  constructor(private formsBuilder:FormBuilder,private toastrService:ToastrService,private school:SchoolService,private shared:PopupschoolService) {
+  constructor(private formsBuilder:FormBuilder,private toastrService:ToastrService,private school:SchoolService,private shared:PopupschoolService,private addLessonService:SchoolLessonService,
+   private trigger:TriggerService
+    ) {
 
   }
 
@@ -33,13 +41,14 @@ scid:number
 
     this.getSchool();
     this.createSchoolForm();
-
+this.trigger.trigger({})
 
 
   }
   ngAfterViewInit(): void {
     this.show();
-
+    this.Legggsin.ngOnInit();
+    this.Legggsin.getSchoolLesson();
 
 
   }
@@ -64,9 +73,22 @@ this.school.getById(a).subscribe(response=>{
 
 }
 
+
+getDataFromChild(data:any){
+this.data=data
+console.log(data)
+}
+
 saveButton(data:any){
 
   this.cl.emit(data);
+  console.log(data);
+  this.addLessonService.addLesson(this.data).subscribe(response=>{
+    this.toastrService.success(response.message,"Başarılı")
+  },responseError=>{
+    this.toastrService.error(responseError.message,"Başarısız")
+  })
+  console.log(this.data)
 
   this.modalPopUp.hide();
 

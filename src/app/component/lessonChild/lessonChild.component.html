@@ -1,5 +1,14 @@
 <p  *ngFor="let lesson of listh">
-  {{lesson}}
+ <a *ngIf="bol">{{lesson}}</a>
 </p>
 
+<ul class="list-group">
+  <li (click)="Letsbegin()"    [class]="getAllLessonClass()">Ders Listesi </li>
+  <li  *ngFor="let lesson of restLesson"   (click)="setCurrentLesson(lesson)"  [class]="getCurrentLessonClass(lesson)"> {{lesson.name}} and {{lesson.id}}</li>
+</ul>
 
+
+
+
+
+<!-- class="list-group-item list-group-item-action  list-group-item-success" -->

@@ -7,6 +7,6 @@ export interface SchoolLesson{
   startDate:Date;
   endDate:Date;
   lessonId:number;
-  lessonName:number;
+  lessonName:string;
 
 }

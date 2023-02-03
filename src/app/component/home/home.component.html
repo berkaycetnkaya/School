@@ -18,8 +18,10 @@
         </button>
         <br />
         <h6>
-          <ul *ngIf="school.selected" class="list-group">
-            <li class="list-group-item"  *ngFor="let lesson of listOfSchoolLesson ">{{ lesson.lessonName }}</li>
+          <ul *ngIf="school.selected" class="list-group" >
+            <li   *ngFor="let lesson of listOfSchoolLesson "   (click)="setCurrentSchool(lesson)"  [class]="getCurrentLessonClass(lesson)" >{{ lesson.lessonName }}
+              <span class="badge text-bg-secondary" (click)="delete(lesson)">Sil</span>
+            </li>
 
             <button type="button" class="btn btn-success mb-3" (click)="createComponent(school)">
               Düzenle
